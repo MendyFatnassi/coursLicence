@@ -1,0 +1,82 @@
+\documentclass[a4paper,12pt]{book}
+
+\usepackage [utf8]{inputenc}
+\usepackage [french]{babel}
+\usepackage [T1]{fontenc}
+
+
+\author{Mendy Fatnassi}
+\title{Linux Programmation Shell}
+
+\begin{document}
+\maketitle
+\chapter{Script Bash}
+\\
+Les différents environnements console sont appelés des shells, en voiciquelques uns :\\
+\\
+sh : Bourne Shell. L'ancêtre de tous les shells.\\
+\\
+bash : Bourne Again Shell. Une amélioration du Bourne Shell, disponible par défaut sous Linux et Mac OS X.\\
+\\
+les fichier script porte l'extension nomscript.sh .\\
+\\
+\section{Structure code}
+En-tete du script(obligation) : #!/bin/bash\\
+\\
+Deboger son script : bash -x nomscript.sh\\
+\\
+Afficher une variable : \\
+mavar = "bonjour le monde!"
+echo \$mavar
+\\
+Pour demander une saisie on utilise \textbf{read} , option -p pour mettre un message : \\
+read "entrez nom" nom \\
+echo "bonjour \$nom" \\
+\\
+Parametre : \$1 \$2 \$3 etc...\\
+\\
+\underline{Structure de controle} :\\
+Pour comparer des entiers -eq(equal),-ne(different de),lt(inferieur),le(inf ou egal),gt(greater than),ge(greater equal).\\
+Pour comparer 2 string if [ "ma string" = "\$1" ] .\\
+\\
+if [ condition ]
+then
+...
+fi
+
+
+\section{Crontab : execution differer}
+\\
+La crontab est un outil qui nous permet de programmer l'execution réguliere d'un programme.Il existe une crontab par utilisateur .
+\\
+-e : modifier la crontab ;\\
+-l : afficher la crontab actuelle ;\\
+-r : supprimer votre crontab. Attention, la suppression est immédiate et sans confirmation !\\
+\\
+Utilisation crontab: # m h  dom mon dow   command
+\\
+Comme cette ligne est précédée d'un #, il s'agit d'un commentaire (qui sera donc ignoré).\\
+Cette ligne vous donne quelques indications sur la syntaxe du fichier :\\
+\\
+-m : minutes (0 - 59) ;\\
+-h : heures (0 - 23) ;\\
+-dom (day of month) : jour du mois (1 - 31) ;\\
+-mon (month) : mois (1 - 12) ;\\
+-dow (day of week) : jour de la semaine (0 - 6, 0 étant le dimanche);\\
+-command : c'est la commande à exécuter.\\
+\\
+Quelque notation :\\
+\\
+-5 (un nombre) : exécuté lorsque le champ prend la valeur 5 ;\\
+-* : exécuté tout le temps (toutes les valeurs sont bonnes) ;\\
+-3,5,10 : exécuté lorsque le champ prend la valeur 3, 5 ou 10. Ne pas mettre d'espace après la virgule ;\\
+-3-7 : exécuté pour les valeurs 3 à 7 ;\\
+-*/3 : exécuté tous les multiples de 3 (par exemple à 0 h, 3 h, 6 h, 9 h…).\\
+\\
+Exemple : \\
+-30 5 1-15 * * commande -> a 5 h 30 du matin du 1er au 15 de chaque mois.\\
+-0 0 * * 1,3,4 commande -> a minuit le lundi, le mercredi et le jeudi.\\
+-0 */2 * * * commande -> Toutes les 2 heures (00 h 00, 02 h 00, 04 h 00…).\\
+-*/10 * * * 1-5 commande -> Toutes les 10 minutes du lundi au vendredi.\\
+\\
+\end{document}

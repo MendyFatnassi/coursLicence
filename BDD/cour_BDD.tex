@@ -1,0 +1,477 @@
+\documentclass[a4paper,12pt,openany]{book}
+\usepackage [utf8]{inputenc}
+\usepackage [french]{babel}
+\usepackage [T1]{fontenc}
+\usepackage {verbatim}
+
+%Pour l espace entre la section et la chapitre (qui est trop grand).
+\usepackage{titlesec}
+
+\titleformat{\chapter}[block]
+  {\normalfont\Huge\bfseries}% font of number
+  {\chaptertitlename\ \thechapter~:}% format of number
+  {20pt}% space between number and title
+  {\Huge}% font of title
+
+\titlespacing*{\chapter}
+  {0pt}%  indent
+  {0pt}% space before
+  {20pt}% space after
+\titlespacing*{\section}
+  {0pt}%  indent
+  {3.5ex plus 1ex minus .2ex}% space before
+  {2.3ex plus .2ex}% space after
+
+\author{Mendy Fatnassi}
+\title{Cours de Base De Donnees}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Generalite}
+\section{Introduction}
+MERISE (Méthode d'Étude et de Réalisation Informatique pour les Systèmes d'Entreprise) est certainement le langage de spécification le plus répandu dans la communauté de l'informatique des systèmes d'information, et plus particulièrement dans le domaine des bases de données. \\
+Une représentation Merise permet de valider des choix par rapport aux objectifs, de quantifier les solutions retenues, de mettre en œuvre des techniques d'optimisation et enfin de guider jusqu'à l'implémentation.\\
+Merise réussit le compromis difficile entre le souci d'une modélisation précise et formelle, et la capacité d'offrir un outil et un moyen de communication accessible aux non-informaticiens.\\
+\\
+\\
+Les trois niveaux de représentation des données, sont détaillés ci-dessous :\\
+\\
+\underline{Niveau conceptuel} :\\
+\\
+Le modèle conceptuel des données (MCD) décrit les entités du monde réel, en terme d'objets, de propriétés et de relations, indépendamment de toute technique d'organisation et d'implantation des données. Ce modèle se concrétise par un schéma entités-associations représentant la structure du système d'information, du point de vue des données.\\
+\\
+\\
+\underline{Niveau logique} : \\
+\\
+Le modèle logique des données (MLD) précise le modèle conceptuel par des choix organisationnels. Il s'agit d'une transcription (également appelée dérivation) du MCD dans un formalisme adapté à une implémentation ultérieure, au niveau physique, sous forme de base de données relationnelle ou réseau, ou autres (cf. section 1.1.2). Les choix techniques d'implémentation (choix d'un SGBD) ne seront effectués qu'au niveau suivant.\\
+\\
+\\
+\underline{Niveau physique} :\\
+\\
+Le modèle physique des données (MPD) permet d'établir la manière concrète dont le système sera mis en place (SGBD retenu).\\
+
+
+\section{Commande postgres/psql}
+
+Pour se connecter a une base de donnes : \$psql -U user –d database –h host \\
+ou\\
+\\
+\$sudo -i -u postgres => cela ouvre l'interpreteur postgres , ensuite taper : \$psql et voila nous sommes dans notre base de donnes.\\
+\\
+\begin{verbatim}
+Lister les bases de données: \l
+Se connecter à une autre base de données : \c nom_base
+Detail de tout ce que contient la base : \d 
+Lister les tables de la base actuelle : \dt
+Obtenir les détails d’une table : \dt nom_table
+Exécuter un fichier de commandes sql : \i mon_fichier.sql
+Obtenir de l’aide postgre : \?
+Obtenir de l’aide sql : \help
+\end{verbatim}
+\\
+Lorsqu'on se connecte a une BDD on peux gerer le controle de l'acces au niveau de la connexion : \\
+psql -d nomBase \\
+Par defaut nomBase=nomUser .\\
+\\
+On peux aussi le faire avec un role : \\
+psql -U nomUser \\
+Par defaut sessionUser=nomUser .\\
+
+\section{Catalogues systeme}
+Les catalogues systemes permettent de stocker toutes les metadonnees des objets contenue dans la base de donnees et chaque base contient son propre catalogues.\\
+Ils contiennent la liste des tables,utilisateurs,vues ... .\\
+Un catalogues commence par le mot cle pg\_nomCatalogue .\\
+\\
+Pour afficher les catalogues on peux faire : \verb+\dt *.*+ \\
+Ensuite on fait : \\
+SELECT * FROM nomSchema.nomCatalogue ;\\
+SELECT * FROM information\_schema.sql\_languages;\\
+\\
+\underline{Liste Catalogue} : \\
+pg\_namesapce -> Liste schema \verb+\dn+ \\
+pg\_views -> Liste vue \verb+\dv+ \\
+pg\_roles -> Liste role \verb+\du+ \\
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Algebre Relationnel}
+\\
+\section{Forme Normale}
+\textbf{1NF} => Tout attributs est atomique (non-decomposable).\\
+\\
+\textbf{2NF} => Tout attributs ne depend d'une partie de la cles mais de toute la cles.Tout attributs cles ne doivent pas etre defini par des attributs non-cles.\\
+\\
+\textbf{3NF} => Pas de DFE(Dependance Fonctionnelle Elementaire) entre attributs cles.tout attributs non-cles ne peux pas definir d'autre attributs non-cles.\\
+\\
+\textbf{4NF} => Est du type cles ->-> attribut(muti-valuee)\\
+\\
+\textbf{BCNF}=> Est du type cles->attribut\\
+\\
+
+\section{MEA / MCD}
+Modele Entité Association ou Modele Conceptuel des Données .\\
+\\
+Il est difficile de modéliser un domaine sous une forme directement utilisable par un SGBD. Une ou plusieurs modélisations intermédiaires sont donc utiles, le modèle entités-associations constitue l'une des premières et des plus courantes.
+\\
+\textbf{Cardinalité} : \\
+\\
+-Maillé (non-hiearchique): 0|1,n et 0|1,n .\\
+L'association devient une table avec importation des 2 cles primaire des tables concernant l'association (2 a n participant).\\
+\\
+-Hiéarchique : 1,1 et 0|1,n .\\
+Pas d'attriburts dans l'association (2 participant pas plus) .\\
+\\
+-Semi-Hiéarchique : 0,1 et 0|1,n\\
+Possibilite d'attributs dans le type association : \\
+	- SI attribut ALORS cas non-hiearchique  \\
+	- SINON cas hiearchique \\
+
+\section{MR / MLD}
+Modele Relationnnel ou Modele Logique des Données .\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Commande sql}
+
+\section{Fonction d'agregation}
+\\
+\textbf{COUNT}: compte du nombre de valeurs non NULL.\\
+\textbf{SUM}:  somme de valeurs numériques ou intervalle.\\
+\textbf{AVG}:  moyenne de valeurs numériques ou intervalle.\\
+\textbf{MIN \& MAX}: valeur minimale/maximale de valeurs numériques, chaîne de caractères ou date.\\
+
+\section{Les jointures}
+\\
+S'utilise dans la clause \textbf{FROM} .\\
+\\
+-Jointure croisee : \textbf{CROSS JOIN}\\
+-Jointure interne : \textbf{INNER JOIN/NATURAL JOIN}\\
+-Jointure externe : \textbf{[RIGHT/LEFT/FULL] OUTER JOIN}\\
+\\
+
+\section{Les clauses}
+Il existe 9 clauses donc 7 optionnel et elle possedent des ordres de priorite , commme si dessous : \\
+\\
+FROM\\
+WHERE\\
+GROUP BY\\
+HAVING\\
+SELECT\\
+{UNION | INTERSECT | EXCEPT}\\
+ORDER BY\\
+OFFSET\\
+LIMIT\\
+
+
+\subsection{La Clause GROUP BY}
+Permet de classer des donnees par groupe , sous-enemble de lignes ayant la meme valeur pour les attributs precises .\\
+\\
+\underline{Exemple} : \\
+SELECT nomAtr FROM nomTbl WHERE nomAtr='louis'  GROUP BY nomAtr ORDER BY ASC;\\
+\\
+\\
+La clause GROUP BY peux etre preceder de la clause ORDER BY pour preciser un ordre de trie croissant/decroissant (ASC/DESC) et on peux aussi la combiner avec 2 autres clause LIMIT et OFFSET .\\
+\\
+\textbf{LIMIT} : nombre de n-uplets a afficher .\\
+\textbf{OFFSET} : Debut , premier n-uplets a afficher .\\
+
+\subsection{La Clause HAVING}
+HAVING est au GROUP BY ce que le WHERE est au SELECT .Si on utilise HAVING on ne met pas de WHERE car c'est lui qui donne des restriction sur les groupes .\\
+\\
+\underline{Exemple} : \\
+SELECT nomAtr FROM nomTbl GROUP BY nomAtr HAVING nomAtr='louis';\\
+
+\section{Operateur Logique}
+Dans la clause WHERE on peux evalue un attributs avec : \verb+=, < ,> ,<= ,>=+ \\
+\\
+On peux aussi utilise des mots cles specifique :\\
+-Etendue : \textbf{BETWEEN} valeur1 \textbf{AND} valeur2 \\
+-Appartenance : \textbf{IN} (ensemble\_val) \\
+-Correspondance a un modele : \textbf{LIKE} modele \\
+-Valeur nul : \textbf{IS NULL}\\
+\\
+On peux utiliser la negation \textbf{NOT}  : NOT BETWEEN , NOT IN , IS NOT NULL \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{DDL - Data Definition Language}
+\section{CREATE ALTER DROP}
+Permet de manipuler des objets SQL CREATE,ALTER et DROP.\\
+En SQL un objets peux etre une DATABASE,SCHEMA,TABLE et VIEW.\\
+\\
+\textbf{CREATE}\\
+Definition des éléments de la base de données : tables,champs, clés mais on peux aussi creer d'autre type d'objet que des tables comme une base de donnes une fonction , une vue etc ... \\
+\\
+\begin{verbatim}
+CREATE nom_table(
+	id_ent integer primary key,
+	nom varchar(50)
+);
+\end{verbatim}
+\\
+On peux aussi creer une base de donne : CREATE DATABASE nomBase ;\\
+\\
+\textbf{DROP}\\
+Supprime des objets SQL .On peux utiliser les option RESTRICT ou CASCADE .\\
+RESTRICT : Suppression impossible si un autre objet en depend .\\
+CASCADe : Suppression des vues et des contraintes de cle etrangeres .\\
+\\
+DROP TABLE nomTable ;\\
+DROP DATABASE nomBase;\\
+\\
+\\
+\textbf{ALTER}\\
+Ajout,Suppression,Modification de la structure de la table ou de ces tuples.\\
+\\
+ALTER TABLE maTable ADD COLUMN nomColonne typeColonne;\\
+ALTER TABLE maTable DROP COLUMN nomColonne ;\\
+\\
+\\
+Pour L'ajout des clés etrangere il y a 2 facons de faire , soit dans la definition de la table :\\
+\\
+\begin{verbatim}
+CREATE nom_table(
+	id_ent integer primary key,
+	nom varchar(50),
+	id_table2 integer references nom_table2, #ou
+	id_table2 integer references nom_table2(id_table2),
+	PRIMARY KEY (id_ent,id_table2)
+);
+\end{verbatim}
+\\
+Ou alors on peux specifier une contrainte de table apres création de celle-ci:\\
+\\
+\underline{\textbf{Contraintes de valuation obligatoire}} :\\
+\\
+ALTER TABLE maTable ALTER COLUMN maColonne memeType NOT NULL;\\
+\\
+ou pour psql\\
+\\
+ALTER TABLE maTable ALTER COLUMN maColonne TYPE nomType;\\
+ALTER TABLE maTable ALTER COLUMN maColonne SET NOT NULL;\\
+\\
+\underline{\textbf{Contraintes de clé primaire}} :\\
+\\
+ALTER TABLE maTable ADD CONSTRAINT PK\_maTable PRIMARY KEY (colonnesConstituantLaCléPrimaire);\\
+\\
+\underline{\textbf{Contraintes de clé étrangère}} :\\
+\\
+ALTER TABLE maTable ADD CONSTRAINT FK\_maTable\_colCleEtrangere FOREIGN KEY(colCleEtrangere) REFERENCES tableCleAReferencer(colClePrimaire);\\
+\\
+\underline{\textbf{Contraintes d’unicité}} :\\
+\\
+ALTER TABLE maTable ADD CONSTRAINT UQ\_maTable\_colTupleUnique UNIQUE (colTupleUnique);\\
+
+\section{Schema}
+Une base de donnees peux contenir plusieur schema , qui permet a plusieur utilisateur de travailler sur la meme BDD mais sur des schema different .\\
+En gros un schema sur un espace de nommage qui fait references a la BDD . Le schema par defaut est le public .\\
+Catalogue : pg\_namespace \\
+\\
+\underline{Commande psql} : \verb+\dn+ -> Liste des schema .\\
+\\
+\textbf{Creation/Suppression}\\
+CREATE SCHEMA nomSchema ; \\
+DROP SCHEMA nomSchema [CASCADE|RESTRICT] ;\\
+\\
+\\
+\textbf{Creation objet}\\
+CREATE OBJET nomSchema.nom\_objet ();\\
+On accede a l'objet d'un schema comme cela : nomSchema.nomObjet\\
+\\
+\\
+\textbf{Definir le proprietaire}\\
+CREATE SCHEMA nomSchema AUTHORIZATION nomUser ;\\
+ALTER SCHEMA nomSchema OWNER TO newUser ; \\
+\\
+\\
+Afficher le chemin de parcours des schema: SHOW search\_path ; \\
+Modification du chemin : SET search\_path TO "louis","\$user",public;\\
+\\
+
+\section{Vue/VIEW}
+
+Une vue correspond a une table virtuelle dans lequelle on vas stocker un resultat d'une requete . Si par exemple on doit souvent faire appele a une requete specifique , on la stockera dans une vue et au lieu de retaper la requete a chaque fois , on feras appelle a la vue .\\
+Catalogue : SELECT * FROM pg\_views .\\
+\\
+\underline{Commmande psql} : \verb+\dv+ -> liste des vues .\\
+\\
+\textbf{Creation/Suppression} : \\
+CREATE VIEW name\_emp AS SELECT ename,dname FROM emp NATURAL JOIN dept ;\\
+DROP VIEW name\_emp ;
+\\
+Ensuite pour utiliser la vue on fait un appele classique dans une requete , on peux la combiner avec des clauses si l'on veux detaille l'appelle a la requete : \\
+SELECT * FROM name\_emp WHERE ename LIKE \verb+'%A%'+;\\
+\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{DML-Data Manipulation Language}
+\\
+Manipulation des données : insertion, suppression, modification, extraction, ..\\
+\\
+\underline{\textbf{INSERT}}:\\
+\\
+-Creer une nouvelle donnee :\\
+\verb+INSERT INTO nom_table(nom,age)VALUES('user',5);+
+\\
+\\
+\underline{\textbf{UPDATE}} :\\
+\\
+Modification des valeurs d'un enregistrement : \\
+\verb+UPDATE table SET nom_colonne_1 = 'nouvelle valeur' WHERE condition;+\\
+\\
+\\
+\underline{\textbf{DELETE}} :\\
+\\
+Suppression d'un enregistrement : \\
+\verb+DELETE FROM nom_table WHERE condition;+\\
+\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{DQL-Data Query Language}
+\section{Gestion des droits/privileges}
+Permet de definir des droits pour certain utilisateur de la base , droit de suppression,creation ou d'insertion de donnees sur une ou des tables,schema,vue etc ... . \\
+\\
+\textbf{GRANT} : Donne des privilileges .\\
+\verb+GRANT privilege ON objet TO [username|GROUP groupname | PUBLIC] ;+\\
+\\
+\\
+\textbf{REVOKE} : Supprime des priviliges .\\
+\verb+REVOKE privilileges ON objet FROM {username |GROUP groupname | PUBLIC};+\\
+\\
+Pour 'privileges' on peux avoir les valeurs suivante : \\
+SELECT(lecture) , INSERT(insertion/ecriture) , UPDATE , DELETE , ALL .\\
+\\
+Pour 'objet' on peux avoir les valeurs suivantes : \\
+ON [DATABASE|TABLE|SCHEMA|LANGUAGE|FUNCTION] nomObjet .\\
+\\
+\section{Role}
+\\
+Un role est une entite qui peut posseder des objets et avoir des droits .On parle d'utilisateur ou d'un groupe d'utilisateur : USER ou GROUP .\\
+Catalogues des roles : pg\_roles .\\
+\\
+\underline{Commande psql} : \verb+\du+ -> Liste des roles .\\
+\\
+\textbf{Afficher les Roles} : \\
+SELECT roleName FROM pg\_roles ;\\
+\\
+\textbf{Changer de Role}\\
+SET ROLE TO groupUser ;\\
+\\
+\textbf{Creation/Suppression} \\
+CREATE ROLE etudiant LOGIN ; ou CREATE USER etudiant;\\
+CREATE ROLE prof [CREATEDB|SUPERUSER|CREATEROLE]; -> Le role prof seras super utilisateur ou peux creer une BDD ou d'autre roles .\\
+DROP ROLE etudiant ;\\
+\\
+\textbf{Modification}
+ALTER ROLE etu WITH PASSWORD 'toto13';
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{DCL-Data Control Language}
+\\
+Gestion des transactions.\\
+\\
+
+\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Langage procedural Pl/PgSql}
+
+On peux combiner des requete sql a une partie procedurale comprennant des boucles , des conditions , des variables etc ... .\\
+Pour cela on creer des bloc d'instruction a travers des fonctions .\\
+
+\section{SEQUENCE}
+Une sequence est une table qui permet le generation d'entier avec des fonction predifini pour manipuler la sequence : \\
+-nextval() : valeur suivante .\\
+-currval() : valeur courante .\\
+-setval() : initialisation de la valeur courante .\\
+\\
+On creer une sequence de la facons suivante :\\
+CREATE SEQUENCE nomSeq [Clause] ;\\
+\\
+-Clause : peux prendre comme valeur -> [INCREMENT BY val]|[MINVALUE|MAXVAMUE val]|[START[WITH] debut]|[OWNED BY {table.colonne}] .\\
+\\
+\underline{Exemple d'utilisation} : \\
+\\
+\begin{verbatim}
+CREATE SEQUENCE mon_num START 3 INCREMENT BY 2;
+
+SELECT nextval('mon_num'); --> retourne 3
+SELECT nextval('mon_num'); --> retourne 5
+
+INSERT INTO ma_table VALUES (nextval('mon_num'));
+
+ALTER SEQUENCE mon_num RESTART WITH 3; --> initialisation a 3
+ou
+SELECT setval('mon_num',3,false);
+\end{verbatim}
+
+
+\section{FUNCTION SQL}
+On utilise le mot cle CREATE pour creer une fonction suivi de son nom,parametres d'entree et de sortie .\\
+\\
+\textbf{Synthaxe} : \\
+\begin{verbatim}
+CREATE [OR REPLACE] FUNCTION nomFonc ([argtype [, ...]])
+RETURNS type_retour AS $name$
+ 	definition 
+$name$
+LANGUAGE nom_langage ;
+\end{verbatim}
+
+-nom\_langage : SQL ou PLPGSQL selon le type de fonction utilisé.\\
+-definition : requete select ou requete DML (Update...) -> SELECT nomAttr FROM nomTableWHERE condition ; \\
+\\
+Une fonction SQL peux avoir 2 type de delimiteur soit avec \verb+$name$+ ou alors avec les simple quotes '' . Si on utilise les \verb+$$+ on fermera notre requete avec point-virgule ';' Sinon avec l'utilisation des quotes on place la requete a l'interieure de celle ci sans le point virgule .\\
+\\
+\underline{Appel} : select nomFonc(argtype); \\
+Si argtype est une varchar il faut utiliser les quotes '' pour passer la chaine de caractere : select nomFonc('text');\\
+\\
+\underline{Exemple} : \\
+\begin{verbatim}
+CREATE FUNCTION ajoute(var1 integer, var2 integer) RETURNS integer AS $$
+    SELECT $1 + $2; 				//ou SELECT var1+var2 ;
+$$ LANGUAGE SQL;
+
+ou
+
+CREATE FUNCTION ajoute(var1 integer, var2 integer) RETURNS integer AS
+    'SELECT $1 + $2'
+LANGUAGE SQL;
+
+SELECT ajoute(1, 2);
+\end{verbatim}
+\\
+Voici une autre fonction qui permet de debiter sur un compte par exemple avec une autre requete que SELECT : \\
+\begin{verbatim}
+CREATE FUNCTION tf1 (integer, numeric) RETURNS numeric AS $$
+    UPDATE banque SET balance = balance - $2 WHERE no_compte = $1;
+    SELECT balance FROM banque WHERE no_compte = $1;
+$$ LANGUAGE SQL;
+\end{verbatim}
+
+Ici ont a une fonction simple SQL retournant seulement 1 resulat (1lig,1col).\\
+
+\section{Type Composite}
+Un type composite est un nouveau type creer par l'utilisateur , un peux comme une structure en C .\\
+\begin{verbatim}
+CREATE TYPE produit_ajoute AS (somme int, produit int);
+
+CREATE FUNCTION ajoute_n_produit (int, int) RETURNS produit_ajoute
+AS 'SELECT $1 + $2, $1 * $2'
+LANGUAGE SQL;
+\end{verbatim}
+On auras pour resultat 2 colonne l'une pour la somme et l'autre pour le produit qui seras ranger directement dans notre type composite .\\
+
+
+
+
+\end{document}

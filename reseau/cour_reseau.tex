@@ -1,0 +1,152 @@
+\documentclass[a4paper,12pt,openany]{book}
+\usepackage [utf8]{inputenc}
+\usepackage [french]{babel}
+\usepackage [T1]{fontenc}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{verbatim}
+
+%%configuration de listings
+\lstset{
+language=c,
+basicstyle=\ttfamily\small,
+identifierstyle=\color{red},
+keywordstyle=\color{blue},
+stringstyle=\color{black!60},
+commentstyle=\it\color{green!95!yellow!1},
+columns=flexible,
+tabsize=1,
+extendedchars=true,
+showspaces=false,
+showstringspaces=false,
+numbers=left,
+numberstyle=\tiny,
+breaklines=true,
+breakautoindent=true,
+captionpos=b
+}
+
+%coloration syntaxique
+\usepackage{xcolor}
+\definecolor{Zgris}{rgb}{0.87,0.85,0.85}
+
+%\newsavebox{\BBbox}
+%\newenvironment{DDbox}[1]{
+%\begin{lrbox}{\BBbox}\begin{minipage}{\linewidth}}
+%{\end{minipage}\end{lrbox}\noindent\colorbox{Zgris}{\usebox{\BBbox}}
+%[.5cm]}
+
+%Pour l espace entre la section et la chapitre (qui est trop grand).
+\usepackage{titlesec}
+
+\titleformat{\chapter}[block]
+  {\normalfont\Huge\bfseries}% font of number
+  {\chaptertitlename\ \thechapter~:}% format of number
+  {20pt}% space between number and title
+  {\Huge}% font of title
+
+\titlespacing*{\chapter}
+  {0pt}%  indent
+  {0pt}% space before
+  {20pt}% space after
+\titlespacing*{\section}
+  {0pt}%  indent
+  {3.5ex plus 1ex minus .2ex}% space before
+  {2.3ex plus .2ex}% space after
+
+\author{Mendy Fatnassi}
+\title{Cours de Reseau}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	Page	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Generalité}
+\section{Vocabulaire}
+On appelle reseau informatique tout ce qui permet d'echanger des donnees entre des stations (ordinateur,telephone...).\\
+Voici quelque protocole : \\
+-FTP (File Transfert Proctocol) et SMTP (Simple Mail Transfert Protocole) -> ces 2 protocole ne sont pas sécuriser , les messages apparaissent en claire .\\
+-DNS(Domain Name System) et TCP/IP qui est le protocol le plus utilise (langage universel) .\\
+\\
+\underline{Serveur} : Heberge les services (stockage,impression...).\\
+\underline{Client} : S'adressent aux serveur pour beneficier des services.\\
+\underline{Peer-To-Peer} : Chaque station est client/serveur.\\
+\\
+Un \textbf{medias reseau} designe un support physique pour l'echange des donnees (cable,switch,routeur).\\
+Un reseau peut etre fermé c'est a dire en locale on perlera de \textbf{LAN (Local Area Network)} on pourra le controler directement et le configurer . A contrario un reseau ouvert a tout le monde est le \textbf{WAN (Worl Area Networck)} concernet tous les autres reaseau et est non-configurable.\\
+
+\underline{Internet} : Interconnection de tous les reseau .\\
+\underline{Intranet} : Reseau privée dedié a l'usage exclusif d'une entreprise ,besoins d'une authentification pour acceder au service du reseau.\\
+\underline{Extranet} : Reseau public , service accessible a l'exterieur du reseau de l'entreprise .\\
+\underline{BYOD(Bring Your Own Device)} : Permet a l'utilisateur d'utilisé ses propres equipements dans l'entreprise.\\
+\\
+
+\underline{Routeur}
+Principale mode de transport la commutation .Chaque paquet contient l'adresse de l'emetteur et du destinataire . Chaque noeudpossede une table de routage.\\
+Un reseau informatique est \textbf{maillé} grace a des \textbf{noeuds} , l'information circule sous forme numerique , le flux est segmenter c'est ce qu'on appelle "paquet" .\\
+La communication numerique a besoins d'encodage et decodage du message , on utilise aussi l'encapsulation pour ajouter de l'information au message (emmetteur,date...) .\\
+\\
+Une communication peut etre :\\
+-Unicast : 1 emmetteur communique avec 1 recepteur .\\
+-Broadcast :  1 emmeteur communique avec plusieur recepteur.\\
+
+
+
+\chapter{Modele OSI}
+\section{Generalite du modele OSI}
+OSI(Open System Internconnection) : Permet de definir comment les appereils vont communiquer entre eux.\\
+ISO (International Organisation for Standardization) : A pas confondre avec OSI .\\
+\\
+Le modele OSI possede 7 couches :\\
+-1(Physique): Transmission des signaux (numerique ou analogique).\verb+\bits+\\
+-2(Liaison): Adessage physique(MAC).\verb+\trame+\\
+-3(Reseau): Determine le parcours des donnees.\verb+\Paquet+\\
+-4(Transport): (TCP et UDP) controle-flux , peer-to-peer.\verb+\Datagramme+\\
+-5(Session)\\
+-6(Presentation)\\
+-7(Application)\\
+\\
+Voici un schema :\\
+\includgraphics[width=1\textwidth]{osi_modele.png}
+Le transport des donnees se fait grace aux couches 1(physique),2(liaison),3(reseau) et 4(transport) . Le traitement des données se fait avec les autres couches 5(session),6(presentation) et 7(application).\\
+Le \textbf{multiplexage}(couche 4.transport) : heberger plusieurs applicatifs sur un meme hote.\\
+Le datagramme et le paquet (couches 4 et 3) sont les entites qui reste identique tous le long du trajet.\\
+
+\section{1.Physique}
+La couche physique concerne le cablage du reseau , a l'aide de cable RJ45.\\
+-Paire torsadée non-blindé UTP (100 Mbits/s).\\
+-Paire torsadée blindé STP,FTP (+rapide,+longue distance que UTP).\\
+\\
+On utilise des cable droit pour les appareils de niveau 1 et 2 du modele OSI sinon on utilise un cable paire-croisé (fait automatiquement par le switch). 
+\\
+Materiel :\\
+-\underline{HUB} : Niveau/Couche 1 , Permet de transmettre l'information a tous les utilisateurs . Permet de regenerer un signal entre deux segments(paquet) du reseau .\\
+-\underline{Switch} : Niveau 2 , Permet de diviser un LAN en plusieurs segments .\\
+-\underline{Routeur} : Niveau 3 , Permet de definir l'acheminement des paquets .\\
+
+
+\section{2.Laison}
+Definit la topologie du reseau , soit en etoile,maillé ou en bus.Fourni aux couches superieur le moyen de controller l'acces aux medias reseau et detecter les erreurs de transmission sur le media .\\
+possede 2 sous couche MAC et LLC , necessite l'etude de la trame ARP .\\
+Dispose de hub et switch .\\
+
+\section{3.Reseau}
+Permet de definir l'adresse IP de la machine , en utilisant un protocol IPv4 ou IPv6 .\\
+Ajout de l'information pour former les paquet (encapsulation).\\
+\\
+\underline{Routage} : Par quels equipements de niveau 3 les paquets vont passe pour atteindre le reseau de destination (table de routage NAT) .\\
+\\
+L'attribution des adresse peux se faire de 2 facons :\\
+-Statique : Configuration explicite/manuelle (IP,Masque...).\\
+-Dynamique : DHCP pour les reseau de grande taille et Les reseaux ou les utilisateur changent souvent.
+
+\section{4.Transport}
+\section{5.Session}
+\section{6.Presentation}
+\section{7.Appication}
+
+
+
+
+\end{document}

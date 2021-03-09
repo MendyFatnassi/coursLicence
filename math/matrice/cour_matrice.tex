@@ -1,0 +1,108 @@
+\documentclass[a4paper,8pt,openany]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\titleformat{\chapter}[block]
+  {\normalfont\Huge\bfseries}% font of number
+  {\chaptertitlename\ \thechapter~:}% format of number
+  {20pt}% space between number and title
+  {\Huge}% font of title
+
+\titlespacing*{\chapter}
+  {0pt}%  indent
+  {0pt}% space before
+  {20pt}% space after
+\titlespacing*{\section}
+  {0pt}%  indent
+  {3.5ex plus 1ex minus .2ex}% space before
+  {2.3ex plus .2ex}% space after
+
+\author{Mendy Fatnassi}
+\title{Cours de Mathematique sur les matrices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	Page	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Generalite}
+Dans un vecteur colonne ou on stock un nombre fini de valeur pouvant etre indicé par une variable entiere de type X(x1,x2,x3) ou l'on stock 3 valeurs indicé par i \in {1,2,3}.\\
+On peux stocker des valeurs indicé par 2 parametre $Y_{i,j}$ avec i,j des entier , on utilise alors des tableau a double entrée (2 dimension) appele matrice .\\
+Une matrice A de type (m,n)=(ligne,colonne) a coeficient dans R est une famille ($a_{i,j}$) avec 1\leq i,j \leq n .\\
+L'ensemble des matieres reeles de type (m,n) est noté M m,n(R).\\
+\underline{Matrice colonne} : est du type M m,1(R)\\
+\underline{Matrice ligne} : est du type M 1,n(R)\\
+
+\chapter{Somme matriciel}
+On peux effectuer la somme de 2 matrices que si elle sont de meme type (m1,n1)=(m2,n2) en effectuant la somme case par case.\\
+\underline{exemple}:\\
+MatA=(1,2,-3;4,5,6) et MatB=(3,2,1;-5,2,-2)\\
+MatC=MatA+MatB = (1+3,2+2,-3+1;4-5,5+2,6-2)=(4,4,-2;-1,7,4)
+
+\chapter{Produit matriciel}
+
+On peux multiplier une matrice par un scalaire \lambda .\\
+\underline{exemple}:\\
+si \lambda = 3 et MatA=(4,1;7,-2). \\
+3 \times MatA = (12,3;21,-6)\\
+\\
+Si une matrice MatA a le meme nombre n de lignes qu'une matrice MatB a de colonnes m alors on peux effectuer la produit matriciel MatA \times MatB .\\
+plus precisement si A \in M m,n(R) et B \in M n,p(R) alors AB \in M m,p(R).\\
+\underline{exemple}:\\
+MatA = (1,2;-1,0;1,3;-2,-1) (4lignes,2colonnes)\\
+Mat B = (1,2,-1,0;0,3,-2,1;0,0,2,1) (3lignes,4colonnes)\\
+
+MatC=MatA \times MatB = (-2,-1;-7,-5;0,7)\\
+1er ligne : (1x1+2x(-1)+(-1)x1+0x(-2)) = -2 et (1x2+2x0+(-1)x3+0x(-1)) = -1 \\
+et ainsi de suite pour remplir le reste de la matrice C .\\
+\includegraphics[width=1\textwidth,center]{produit_matriciel.png}
+Le produit de matrice n'est pas commutatif si AB est autorisé cela ne veux pas dire que BA seras autorisé .\\
+\\
+Si on multiplie une matrice colonne A \in M m,1(R) par une matrice ligne B \in M 1,n on obtient alors AB \in M m,n(R).\\
+Si on multiplie une matrice carré (3,3) M 3,3(R) par une matrice colonne a 3 composante M 3,1 on obtient une matrice colonne AB \in M 3,1(R).\\
+
+
+\chapter{Matrice carre}
+Une matrice carre de taille n est du type M n,n avec n \in N et est noté M m(R).\\
+
+\section{Matrice Identité}
+Une matrice identité est une matrice carré avec des 1 sur ca diagonal et les autres coef sont a 0. Elle est noté In .\\
+La matrice In est commutative avec les autres matrice carré de taille n . A.In=In.A .Multiplie par In revient a multiplier par 1 (on ne fait rien) \\
+Si la diagonale a des coeficients autre que 1 il s'agit d'une matrice diagonale.Les matrices diagonale de meme taille commutent entre elles .\\
+
+\section{Transposé}
+Dans certaine cas on a besoins de permuter les lignes et les colonnes on effectue alors une transposition.\\
+La transposé d'une matrice se note $MatA^t$ .\\
+\underline{exemple}:\\
+MatA = (1,2,3;4,5,6) ca transposé est $MatA^t = (1,4;2,5;3,6)$
+
+
+\chapter{Resolution de systeme d'equation}
+Lorsqu'on a un systeme a 3 equations et 3 inconnus (x,y,z) on peux utiliser des regles pour trouver une (des) solution de l'equation.\\
+Regles , on a le droit de : \\
+-Permuter 2 lignes\\
+-Multiplier une equation par un réel non-nul\\
+-Ajouter un multiple reel d'une equation a une autres\\
+
+%.....FINIR......
+
+\chapter{Inversion de matrice}
+Dans certain cas une matrice carré A \in M_n (R) est inversible , dans ce cs la matrice inerse de A est noté A^{-1}.\\
+On a alors A\times A^{-1} = In .Quand le systeme a exactement 1 solution , l'egalité matricielle AX=V a exactemment 1 solution .\\
+Dans ce cas la matrice est inversible et l'on peut multiplier les 2 membres par A^{-1} ,ce qui donne:\\
+A^{-1}AX=A^{-1}V \Rightarrow InX=A^{-1}V \Rightarrow X=A^{-1}V .si l'on sait calculer A^{-1} on trouve directement X .\\
+\\
+Pour iverser il exister differentes methode :\\
+-La formule theorique "classique" repose sur le derterminant mais demand beaucoup d'operation.\\
+-La methode du pivot de Gauss : Cela consiste a juxtaposer les matrices A et In , on applique le pivot de gauche a droite et l'on effectue les meme operation sur In , si l'on parvient a obtenir In a gauche , alors A est inversible et A^{-1} est donné a droite .
+
+%.....FINIR......
+
+
+
+\end{document}

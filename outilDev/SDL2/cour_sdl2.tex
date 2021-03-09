@@ -1,0 +1,234 @@
+\documentclass[a4paper,12pt,openany]{book}
+\usepackage [french]{babel}
+\usepackage [utf8]{inputenc}
+\usepackage [T1]{fontenc}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{listings}
+
+
+%%configuration de listings
+\lstset{
+language=tex,
+basicstyle=\ttfamily\small, 
+identifierstyle=\color{red}, 
+keywordstyle=\color{blue}, 
+stringstyle=\color{black!60}, 
+commentstyle=\it\color{green!95!yellow!1}, 
+columns=flexible, 
+tabsize=1, 
+extendedchars=true, 
+showspaces=false, 
+showstringspaces=false, 
+numbers=left, 
+numberstyle=\tiny, 
+breaklines=true, 
+breakautoindent=true, 
+captionpos=b
+}
+
+%coloration syntaxique
+\usepackage{xcolor}
+\definecolor{Zgris}{rgb}{0.87,0.85,0.85}
+
+\author{Mendy Fatnassi}
+\title{Cours Outils de Develloppement}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\chapter{Installation et configuration de SDL2}
+\\
+\section{Generalité bibliothéque}
+\includgraphics{schema_compil.png}
+\\
+Les fichiers source (les fichiers .c/.cpp/…) sont d'abord lus par le préprocesseur qui ne s'occupera que de traiter les commandes #XXX (#define, #ifdef…) pour produire un fichier source où ces directives ont été exécutées.\\
+\\
+Ensuite, le compilateur transforme le source en un fichier intermédiaire (.o/.obj), compilé, mais qui n'est pas exécutable.\\
+\\
+
+
+\section{Librairie Statique/Dynamique}
+
+\underline{Bibliothèque statique} :\\
+\\
+Sera compilée avec le programme et directement intégrée dans l'exécutable final. Il n'y aura donc pas besoin de .so/.dll lors de l'exécution mais des .a et .h. L'avantage de la compilation statique est de rendre l'exécutable indépendant (il peut fonctionner sur n'importe quelle plateforme compatible, sans pour autant nécessiter l'installation de la bibliothèque), toutefois, il est, de par ce fait, plus lourd et vous ne pourrez pas mettre à jour les bibliothèques sur lesquelles il repose, sans le recompiler.\\
+\\
+\underline{Bibliothèque dynamique} : \\
+\\
+Fait que l'exécutable ira chercher les fonctions à exécuter dans des fichiers séparés (.so/.dll). L'exécutable sera plus léger et les bibliothèques pourront être mises à jour sans recompiler l'exécutable. De plus, une bibliothèque peut être chargée à la volée (durant l'exécution d'un programme) et ainsi fournir des fonctionnalités en plus, si elle est présente : les systèmes de modules ou ajouts sont souvent implémentés sous la forme de bibliothèques chargées lorsque nécessaires.\\
+\\
+Soit la librairie libXXX.a (ou libXXX.so) se trouvant dans un répertoire dont le chemin absolu estchemin. Pour compilerun fichier sourceprog.cfaisant appel à des fonctions de cette librairie, il faut taper la ligne de commande suivante :\\
+gcc prog.c -Lchemin -lXXX -o prog\\
+\\
+dans le cas des librairies dynamiques,si le programme allait toujours chercher les librairies au même emplacement, il suffirait de changer cet emplacement pour quele  programme  devienne  inutilisable1,  ou  qu’il  faille  le  recompiler.  C’est  pourquoi  pour  chercher  l’emplacement  des  librairiesdynamiques, on s’aide d’une variable d’environnement appeléeLD_LIBRARY_PATHCette variable indique au programme à quels emplacements il doit chercher les librairies dynamiques. Si cet emplacement estmodifié, il suffit de modifier la variable, sans changer le programme. Pour indiquer au système qu’il faut chercher dans le répertoire/usr/local/lib, il faudra initialiser la variable LD_LIBRARY_PATH de la manière suivante :\\
+\\
+export LD_LIBRARY_PATH=/usr/local/lib\\
+\\
+Si l’on veut que les programmes cherchent dans /usr/local/lib, dans /usr/X11R6/lib et dans le répertoire courant, il faudra écrire :\\
+\\
+export LD_LIBRARY_PATH=.:/usr/X11R6/lib:/usr/local/lib\\
+\\
+En pratique, vous ne définirezjamaiscette variable mais vous ajouterez des fichiers à sa définition :\\
+\\
+\verb+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/users/profs/habibi/libs+\\
+
+
+
+
+
+\section{Installation SDL2}
+
+Pour l'installation de la SDL2 , il faut allez sur le site de la SDL "https://www.libsdl.org" , une fois l'archive telecharger il faut la dezipper .\\
+
+
+\section{compilation}
+On compile un projet sdl de la facons suivante : \\
+\\
+gcc -Wall -Wextra src/main.c -o main -L./lib -I./include -lSDL2-2.0 \\
+\\
+\underline{Option}:\\
+-L : permet de spécifier où trouver la bibliothèque libSDL2.so \\
+-l : permet de dire qu’il faut utiliser la bibliothèque SDL2\\
+-I : permet de spécificer où sont les fichiers .h\\
+
+OU alors avec : \\
+\\
+gcc -o executable fichier1.c fichier2.c fichier3.c ...  `sdl2-config --cflags --libs` \\
+\\
+Les options respectives à ajouter à la compilation avec GCC (après -lSDLmain -lSDL) sont :\\
+\\
+-lSDL_image : pour SDL_image
+-lSDL_ttf : pour SDL_ttf
+-lSDL_mixer : pour SDL_mixer
+\\
+\textbf(Avec CMake) : \\
+\\
+Pour la SDL, il est nécessaire de créer un nouveau dossier (par exemple, build) à côté de celui extrait. Ensuite, il suffit d'exécuter à partir du dossier build :\\
+\\
+cmake -G « Unix Makefiles » ../dossier\_des\_sources\_de\_la\_SDL \\
+make \\
+\\
+Cet exemple créera un Makefile et est donc parfait pour Linux. L'élément que vous pouvez passer à l'option -G détermine le type de fichier devant être généré.\\
+
+\chapter{Arborescence du projet}
+Cette organisation permet d'éviter à ce que vous ayez à installer (ou faire installer) la bibliothèque sur chacun des postes que vous utiliserez : elle est intégrée dans le projet.\\
+\\
+Ce qui nous donne l'arborescence suivante :\\
+\begin{verbatim}
+/
+include
+- SDL2
+- - …
+- - tous les fichiers .h de la SDL
+- - …
+lib
+- libSDL2-2.0.so (dynamique) ou libSDL2.a (statique) (pour Linux)
+- libSDL2.lib (pour Windows) ou libSDL2*.a (pour MinGW)
+src
+- main.c
+SDL2.dll (pour Windows)
+les fichiers de projets (.cbp (pour Code::Blocks), .sln (pour Visual Studio)…)
+\end{verbatim}
+
+\chapter{Configuration du projet}
+
+Une fois que tous les fichiers sont prêts, que le code source est prêt, il ne reste plus qu'à créer le projet de votre nouvelle application SDL 2 afin de la compiler.\\
+Nous devons spécifier le répertoire contenant les fichiers d'entête (include), le répertoire des fichiers de la bibliothèque (lib) et les bibliothèques à intégrer. Ne pouvant pas décrire ces étapes pour tous les éditeurs existants, seuls les plus connus seront présentés.\\
+\\
+\underline{GCC Linux}\\
+\\
+Dans votre ligne de compilation, il suffit de spécifier le répertoire où chercher la bibliothèque (-L./lib), le répertoire des entêtes (-I./include) et d'indiquer que vous voulez utiliser la SDL 2.0 (-lSDL2-2.0).\\
+\\
+Ce qui donne : \\
+\\
+gcc -Wall -Wextra -L./lib -I./include -lSDL2-2.0 src/main.c -o main\\
+\\
+Lorsque la bibliothèque est installée à l'aide du gestionnaire de paquets, ou de la commande make install, il n'est pas nécessaire de spécifier les dossiers lib et include car les fichiers sont dans les dossiers que le compilateur scanne par défaut.\\
+
+
+\chapter{Code SDL}
+\section{Initialisation de la SDL}
+\begin{verbatim}
+if (SDL_Init(SDL_INIT_VIDEO) != 0 )
+{
+    fprintf(stdout,"Échec de l'initialisation de la SDL (%s)\n",SDL_GetError());
+    return -1;
+}
+\end{verbatim}
+
+SDL_Init() prend un seul parametre : \\
+\\
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+SDL_INIT_TIMER & Initialise le sous-système des chronomètres\\ \hline
+SDL_INIT_AUDIO & Initialise le sous-système pour l'audio\\ \hline
+SDL_INIT_VIDEO & Initialise le sous-système pour le rendu\\ \hline
+SDL_INIT_JOYSTICK & Initialise le sous-système pour les joysticks\\ \hline
+SDL_INIT_HAPTIC & Initialise le sous-système pour le retour de force\\ \hline
+SDL_INIT_GAMECONTROLLER & Initialise le sous-système pour les contrôleurs de jeux\\ \hline
+SDL_INIT_EVENTS &Initialise le sous-système pour les événements\\ \hline
+SDL_INIT_EVERYTHING & Initialise tous les sous-systèmes nommés ci-dessus\\ \hline
+SDL_INIT_NOPARACHUTE & Avec cette option, la SDL ne mettra pas en place de fonction de nettoyage lors de la réception de signaux fatals (par exemple : erreur de segmentation).\\ \hline
+\end{tabular}
+\end{center}
+
+
+\section{Ouvrire une Fenetre}
+\begin{verbatim}
+SDL_Window* pWindow = NULL;
+pWindow = SDL_CreateWindow("Ma première application SDL2",SDL_WINDOWPOS_UNDEFINED,
+                                                          SDL_WINDOWPOS_UNDEFINED,
+                                                          640,
+                                                          480,
+                                                          SDL_WINDOW_SHOWN);
+
+if( pWindow )
+{
+    /* Suite du programme */
+
+    SDL_DestroyWindow(pWindow); // Destruction de la fenêtre
+}
+else
+{
+        fprintf(stderr,"Erreur de création de la fenêtre: %s\n",SDL_GetError());
+}
+\end{verbatim}
+\\
+La fonction créant une fenêtre est : SDL_CreateWindow(). Celle-ci retourne un pointeur sur une variable de type SDL_Window (nouvelle structure implémentée à partir de SDL 2).\\
+\\
+SDL_CreateWindow() attend plusieurs paramètres afin de créer la fenêtre. Ceux-ci sont :
+SDL_CreateWindow(char nom_fenetre,char posX ,char posY ,int taille_largeur ,int taille_hauteur,char option);\\
+\\
+Pour la position : \\
+\\
+-SDL_WINDOWPOS_UNDEFINED --> laisse le libre champ à la bibliothèque de placer la fenêtre où elle le souhaite.\\
+\\ 
+-SDL_WINDOWPOS_CENTERED --> permet de toujours avoir une fenêtre centrée sur l'écran.\\
+\\
+Pour les option :\\
+\\
+\begin{center}
+\begin{tabular}{|l|l|}
+	\hline
+	 SDL_WINDOW_FULLSCREEN & Crée une fenêtre plein écran\\ \hline
+	 SDL_WINDOW_FULLSCREEN_DESKTOP & Crée une fenêtre plein écran à la résolution actuelle du bureau\\ \hline
+	 SDL_WINDOW_OPENGL & Crée une fenêtre pouvant être utilisée pour OpenGL\\ \hline
+	\hline
+	SDL_WINDOW_SHOWN & Crée une fenêtre et l'afficher \\ \hline
+	SDL_WINDOW_HIDDEN & Crée une fenêtre cachée\\ \hline
+	SDL_WINDOW_BORDERLESS & Crée une fenêtre sans bordure\\ \hline
+	SDL_WINDOW_RESIZABLE & Crée une fenêtre redimensionnable\\ \hline
+	SDL_WINDOW_MINIMIZED & Crée une fenêtre minimisée\\ \hline
+	SDL_WINDOW_MAXIMIZED & Crée une fenêtre maximisée\\ \hline
+	SDL_WINDOW_INPUT_GRABBED & Crée une fenêtre et récupère le focus d'entrée\\ \hline
+	SDL_WINDOW_INPUT_FOCUS & Crée une fenêtre et donne le focus d'entrée\\ \hline
+	SDL_WINDOW_MOUSE_FOCUS & Crée une fenêtre et donne le focus de la souris\\ \hline
+	SDL_WINDOW_FOREIGN & La fenêtre n'est pas créée par la SDL\\ \hline
+\end{tabular}
+\end{center}
+
+
+
+\end{document}

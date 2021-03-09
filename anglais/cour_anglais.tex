@@ -1,0 +1,441 @@
+œ\documentclass[a4paper,12pt,openany]{book}
+
+\usepackage [utf8]{inputenc}
+\usepackage [french]{babel}
+\usepackage [T1]{fontenc}
+\usepackage{titlesec}
+
+\titleformat{\chapter}[block]
+  {\normalfont\Huge\bfseries}% font of number
+  {\chaptertitlename\ \thechapter~:}% format of number
+  {20pt}% space between number and title
+  {\Huge}% font of title
+
+\titlespacing*{\chapter}
+  {0pt}%  indent
+  {0pt}% space before
+  {20pt}% space after
+\titlespacing*{\section}
+  {0pt}%  indent
+  {3.5ex plus 1ex minus .2ex}% space before
+  {2.3ex plus .2ex}% space after
+
+\author{Mendy Fatnassi}
+\title{Linux Programmation Shell}
+
+\begin{document}
+\chapter{Present simple}
+
+Le présent simple a 3 usages principales :\\
+\\
+    1. Il décrit une habitude, une action régulière.\\
+    2. Il énonce des faits généralement vrais.\\
+    3. Il sert à dire ce qu’on aime, qu’on apprécie, … ou le contraire.\\
+\\
+\underline{Conjugaison}: \\
+\\
+C’est très simple : on garde la base verbale telle quelle, et on rajoute un \textbf{-s} à la fin du verbe avec « he », « she » et « it » (3ème personne du singulier).\\
+Attention au verbe irregulier (cf tab_verbe_irregulier) !!!\\
+
+\chapter{Present BE+ING (continue)}
+
+On l’utilise pour :\\
+\\
+	1. Parler de ce qui se passe sur le moment, maintenant, on peut traduire par « en train de »
+	2. Dire ce qui arrive ces temps-ci, des généralités
+	3. Expliquer ce qu’on va faire dans un futur très proche
+\\
+\underline{Conjugaison}:\\
+Pour conjuguer le présent continu, c’est très simple :\\
+Auxiliaire \textbf{BE} (être) conjugué + \textbf{VERBE} + \textbf{ING} à la fin du verbe\\
+\\
+Souvent, quand le verbe à l’infinitif finit par un duo voyelle-consonne, on double la consonne avant d’ajouter -ING : « run – running », « swim – swimming »\\
+
+\chapter{Preterit simple}
+
+Le prétérit est un temps du passé, et il a 2 utilisations principales :\\
+\\
+    1. Parler d’actions ou d’événements finis, sans lien avec le présent\\
+    2. Raconter un récit, une histoire\\
+\\
+\underline{Conjugaison}:\\
+En général, on ajoute \textbf{-ed} à la fin du verbe pour tous les pronoms.\\
+Mais il y a les fameux verbes irréguliers, et il n’y a pas d’autre solution que de les apprendre par cœur.\\
+
+\chapter{Verbe Irregulier}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Anglais ( Infinitif ) & Prétérit & Participe passé & Français ( Infinitif )\\
+\hline
+abide & abode & abode & souffrir & suporter\\
+\hline
+arise & arose & arisen & survenir\\
+\hline
+awake & awoke & awoken & se réveiller\\
+\hline
+be & was & were & been & être\\
+\hline
+bear & bore & borne / born & porter / supporter\\
+\hline
+beat & beat & beaten & battre\\
+\hline
+become & became & become & devenir\\
+\hline
+beget & begat / begot & begotten & engendrer\\
+\hline
+begin & began & begun & commencer\\
+\hline
+bend & bent & bent & plier / se courber\\
+\hline
+bereave & bereft / bereaved & bereft / bereaved & déposséder / priver\\
+\hline
+bet & bet & bet & parier\\
+\hline
+bid	 & bid / bade  & 	bid / bidden & offrir\\
+\hline
+bite & bit & bitten & mordre\\
+\hline
+bleed & bled & bled & saigner\\
+\hline
+blow & blew & blown & souffler / gonfler\\
+\hline
+break & broke & broken & casser\\
+\hline
+breed & bred & bred & élever (des animaux)\\
+\hline
+bring & brought & brought & apporter\\
+\hline
+broadcast & broadcast & broadcast & diffuser / émettre\\
+\hline
+build & built & built & construire\\
+\hline
+burn & burnt / burned & burnt / burned & brûler\\
+\hline
+burst & burst & burst & éclater\\
+\hline
+buy & bought & bought & acheter\\
+\hline
+can & could & could & pouvoir\\
+\hline
+cast & cast & cast & jeter / distribuer (rôles)\\
+\hline
+catch & caught & caught & attraper\\
+\hline
+chide & chid & chiden & gronder\\
+\hline
+choose & chose & chosen & choisir\\
+\hline
+cling & clung & clung & s’accrocher\\
+\hline
+clothe & clad / clothed & clad / clothed & habiller / recouvrir\\
+\hline
+come & came & come & venir\\
+\hline
+cost & cost & cost & coûter\\
+\hline
+creep & crept & crept & ramper\\
+\hline
+cut & cut & cut & couper\\
+\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|c|c|}
+\hline
+deal & dealt & dealt & distribuer\\
+\hline
+dig	 & dug	 & dug & creuser\\
+\hline
+dive & dived & dived / dove & plonger\\
+\hline
+do & did & done & faire\\
+\hline
+draw & drew & drawn & dessiner / tirer\\
+\hline
+dream & dreamt / dreamed & dreamt / dreamed & rêver\\
+\hline
+drink & drank & drunk & boire\\
+\hline
+drive  & drove & driven & conduire\\
+\hline
+dwell & dwelt & dwelt / dwelled	habiter\\
+\hline
+eat & ate & eaten & manger\\
+\hline
+fall & fell & fallen & tomber\\
+\hline
+feed & fed & fed & nourrir\\
+\hline
+feel & felt & felt & se sentir / ressentir\\
+\hline
+fight & fought & fought & se battre\\
+\hline
+find & found & found & trouver\\
+\hline
+flee & fled & fled & s’enfuir\\
+\hline
+fling & flung & flung & lancer\\
+\hline
+fly & flew & flown & voler\\
+\hline
+forbid & forbade & forbidden & interdire\\
+\hline
+forecast & forecast & forecast & prévoir\\
+\hline
+forget & forgot & forgotten / forgot & oublier\\
+\hline
+forgive & forgave & forgiven & pardonner\\
+\hline
+forsake & forsook & forsaken & abandonner\\
+\hline
+forsee & foresaw & foresawn & prévoir / présentir\\
+\hline
+freeze & froze & frozen & geler\\
+\hline
+get & got & gotten / got & obtenir\\
+\hline
+give & gave & given & donner\\
+\hline
+go & went & gone & aller\\
+\hline
+grind & ground & ground & moudre / opprimer\\
+\hline
+grow & grew & grown & grandir / pousser\\
+\hline
+hang & hung & hung & tenir / pendre\\
+\hline
+have & had & had & avoir\\
+\hline
+hear & heard & heard & entendre\\
+\hline
+hide & hid & hidden & cacher\\
+\hline
+hit & hit & hit & taper / appuyer\\
+\hline
+hold & held & held & tenir\\
+\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|c|c|}
+\hline
+hurt & hurt & hurt & blesser\\
+\hline
+keep & kept & kept & garder\\
+\hline
+kneel & knelt / knelled & knelt / kneeled & s’agenouiller\\
+\hline
+know & knew & known & connaître / savoir\\
+\hline
+lay & laid & laid & poser\\
+\hline
+lead & led & led & mener / guider\\
+\hline
+lean & leant / leaned & leant / leaned & s’incliner / se pencher\\
+\hline
+leap & leapt / leaped & leapt / leaped & sauter / bondir\\
+\hline
+learn & learnt & learnt & apprendre\\
+\hline
+leave & left & left & laisser / quitter / partir\\
+\hline
+len & lent & lent & prêter\\
+\hline
+let & let & let & permettre / louer / laisser\\
+\hline
+lie & lay & lain & s’allonger\\
+\hline
+light & lit / lighted & lit / lighted & allumer\\
+\hline
+lose & lost & lost & perdre\\
+\hline
+make & made & made & fabriquer\\
+\hline
+mean & meant & meant & signifier\\\
+\hline
+meet & met & met & rencontrer\\
+\hline
+mow & mowed & mowed / mown & tondre\\
+\hline
+offset & offset & offset & compenser\\
+\hline
+overcome & overcame & overcome & surmonter\\
+\hline
+partake & partook & partaken & prendre part à\\
+\hline
+pay & paid & paid & payer
+\hline
+plead & pled / pleaded & pled / pleaded & supplier / plaider\\
+\hline
+preset & preset & preset & programmer\\
+\hline
+prove & proved & proven / proved & prouver\\
+\hline
+put & put & put & mettre\\
+\hline
+quit & quit & quit & quitter\\
+\hline
+read & read & read & lire\\
+\hline
+relay & relaid & relaid & relayer\\
+\hline
+rend & rent & rent & déchirer\\
+\hline
+rid & rid & rid & débarrasser\\
+\hline
+ride & rode & ridden & monter (vélo, cheval)\\
+\hline
+ring & rang & rung & sonner / téléphoner\\
+\hline
+rise & rose & risen & lever\\
+\hline
+run & ran & run & courir\\
+\hline
+saw & saw / sawed & sawn / sawed & scier\\
+\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|c|c|}
+\hline
+say & said & said & dire\\
+\hline
+see & saw & seen & voir\\
+\hline
+seek & sought & sought & chercher\\
+\hline
+sell & sold & sold & vendre\\
+\hline
+send & sent & sent & envoyer\\
+\hline
+set & set & set & fixer\\
+\hline
+shake & shook & shaken & secouer\\
+\hline
+shed & shed & shed & répandre / laisser tomber\\
+\hline
+shine & shone & shone & briller\\
+\hline
+shoe & shod & shod & chausser\\
+\hline
+shoot & shot & shot & tirer / fusiller\\
+\hline
+show & showed & shown & montrer\\
+\hline
+shut & shut & shut & fermer\\
+\hline
+sing & sang & sung & chanter\\
+\hline
+sink & sank / sunk & sunk / sunken & couler\\
+\hline
+sit & sat & sat & s’asseoir\\
+\hline
+slay & slew & slain & tuer\\
+\hline
+sleep & slept & slept & dormir\\
+\hline
+slide & slid & slid & glisser\\
+\hline
+slink & slunk / slinked & slunk / slinked & s’en aller furtivement\\
+\hline
+slit & slit & slit & fendre\\
+\hline
+smell & smelt & smelt & sentir\\
+\hline
+sow & sowed & sown / sowed & semer\\
+\hline
+speak & spoke & spoken & parler\\
+\hline
+speed & sped & sped & aller vite\\
+\hline
+spell & spelt & spelt & épeler / orthographier\\
+\hline
+spend & spent & spent & dépenser / passer du temps\\
+\hline
+spill & spilt / spilled & spilt / spilled & renverser\\
+\hline
+spin & spun & spun & tourner / faire tourner\\
+\hline
+spit & spat / spit & spat / spit & cracher\\
+\hline
+split & split & split & fendre\\
+\hline
+spoil & spoilt & spoilt & gâcher / gâter\\
+\hline
+spread & spread & spread & répandre\\
+\hline
+spring &  & sprung & surgir / jaillir / bondir\\
+\hline
+stand & stood & stood & être debout\\
+\hline
+steal & stole & stolen & voler / dérober\\
+\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|c|c|}
+\hline
+stick & stuck & stuck & coller\\
+\hline
+sting & stung & stung & piquer\\
+\hline
+stink & stank & stunk & puer\\
+\hline
+strew & strewed & strewn / strewed & éparpiller\\
+\hline
+strike & struck & stricken / struck & frapper\\
+\hline
+strive & strove & striven & s’efforcer\\
+\hline
+swear & swore & sworn & jurer\\
+\hline
+sweat & sweat / sweated & sweat / sweated & suer\\
+\hline
+sweep & swept & swept & balayer\\
+\hline
+swell & swelled & swollen / swelled & gonfler / enfler\\
+\hline
+swim & swam & swum & nager\\
+\hline
+swing & swung & swung & se balancer\\
+\hline
+take & took & taken & prendre\\
+\hline
+teach & taught & taught & enseigner\\
+\hline
+tear & tore & torn & déchirer\\
+\hline
+tell & told & told & dire / raconter\\
+\hline
+think & thought & thought & penser\\
+\hline
+thrive & throve / thrived & thriven / thrived & prospérer\\
+\hline
+throw & threw & thrown & jeter\\
+\hline
+thrust & thrust & thrust & enfoncer\\
+\hline
+tread & trod & trodden & piétiner quelque chose\\
+\hline
+typeset & typeset & typeset & composer\\
+\hline
+undergo & underwent & undergone & subir\\
+\hline
+understand & understood & understood & comprendre\\
+\hline
+wake & woke & woken & réveiller\\
+\hline
+wear & wore & worn & porter (avoir sur soi)\\
+\hline
+weep & wept & wept & pleurer\\
+\hline
+wet & wet / wetted & wet / wetted & mouiller\\
+\hline
+win & won & won & gagner\\
+\hline
+wind & wound & wound & enrouler / remonter\\
+\hline
+withdraw & withdrew & withdrawn & se retirer\\
+\hline
+wring & wrung & wrung & tordre\\
+\hline
+write & wrote & written & écrire\\
+\hline
+\end{tabular}
+\end{document}

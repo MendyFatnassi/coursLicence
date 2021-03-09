@@ -1,0 +1,86 @@
+\documentclass[a4paper,12pt,openany]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{listings}
+
+\titleformat{\chapter}[block]
+  {\normalfont\Huge\bfseries}% font of number
+  {\chaptertitlename\ \thechapter~:}% format of number
+  {20pt}% space between number and title
+  {\Huge}% font of title
+
+\titlespacing*{\chapter}
+  {0pt}%  indent
+  {0pt}% space before
+  {20pt}% space after
+\titlespacing*{\section}
+  {0pt}%  indent
+  {3.5ex plus 1ex minus .2ex}% space before
+  {2.3ex plus .2ex}% space after
+
+\author{Mendy Fatnassi}
+\title{Cours de Mathematique}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	Page	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Composition d'un ordinateur}
+Un ordinateur pour soit en etat de fonctionnement a besoins de different materiel :
+
+\underline{Un Processeur} :\\
+Il s'agit du cerveau de l'odinateur , Un processeur (ou unité centrale de traitement, UCT,central processing unit, CPU) est un composant présent dans de nombreux dispositifs électroniques qui exécute les instructions machine des programmes informatiques . Un processeur construit en un seul circuit intégré est un microprocesseur .
+
+\underline{La memoire} :\\ 
+La technologie la plus courante utilise des semi-conducteurs électroniques numériques parfois associés à des composants mécaniques. Les usages les plus courants sont la mémoire vive et la mémoire de masse.\\
+\\
+Il existe différents types de mémoire :\\
+\textbf{mémoire vive (RAM)}:\\
+mémoire où chaque information stockée peut à tout moment être consultée, ou modifiée (voir adressage mémoire). La mémoire centrale des ordinateurs est la plupart du temps une mémoire vive volatile bien que le SSD remplisse de plus en plus souvent ce rôle .\\
+\\
+\textbf{mémoire morte (Read-Only Memory : ROM)}:\\
+mémoire non-volatile où les informations sont écrites une fois mais ne peuvent pas être modifiées. Les mémoires mortes sont utilisées par exemple pour stocker définitivement des logiciels enfouis.\\
+\\
+\textbf{mémoire volatile et non-volatile}:\\
+On dissocie 2 types de memoire , la mémoire volatile (ou non rémanente, temporaire ou à court terme) est une mémoire informatique qui a besoin d'alimentation électrique continue pour conserver l'information qui y est enregistrée , les informations sont perdues lors de la mise hors tension de l'appareil contrairement a une memoire non-volatile qui garde les information en dur dans l'ordinateur.les mémoires non volatiles dont le contenu est fixé lors de leur fabrication, qui peuvent être lues plusieurs fois par l'utilisateur et qui ne sont pas prévues pour être modifiées. Elles peuvent parfois cependant l'être par un utilisateur expérimenté, éventuellement avec un matériel spécial. Ces mémoires sont les UVPROM, les PROM, les EPROM et les EEPROM. Les mémoires rémanentes sont utilisées pour les téléphones portables, les autoradios, les GPS, ou les appareils photo numériques.\\
+\\
+\textbf{mémoire flash}\\
+mémoire rémanente dont le contenu peut être intégralement effacé en une seule opération. Certaines mémoires de ce type pouvaient être effacées par une exposition aux ultraviolets.\\
+\\
+\textbf{mémoire virtuelle}\\
+mécanisme qui permet de donner plus de mémoire au processeur pour travailler, en simulant la présence d'un type de mémoire tout en utilisant un autre type (par exemple un disque dur). Il est utilisé par exemple pour simuler la présence de mémoire vive en utilisant de la mémoire de masse.\\
+\\
+\underline{Carte Mère} :\\
+a carte mère est le circuit imprimé qui supporte la plupart des composants et des connecteurs nécessaires au fonctionnement d'un compatible PC. Elle est essentiellement composée de circuits imprimés et de ports de connexion qui assurent la liaison de tous les composants et périphériques propres à un ordinateur.\\
+
+\underline{Carte Graphique}:\\
+Une carte graphique ou carte vidéo (GPU) permet d'afficher une image/video a l'ecrans.
+
+\chapter{Architecture d'un ordinateur}
+
+\chapter{Systeme de partition}
+
+\section{EFI (Extensibble Firmeware Interface sys. partition)}
+
+C'est une partition système qui contient les informations de démarrage du système d'exploitation sur les disques GPT et ordinateur en Bios UEFI.
+Cette partition existe donc si vous êtes sur Windows ou Linux.\\
+\\
+Depuis que nos ordinateurs existent, les disques durs utilisent la table de partitionnement du MBR (Master Boot Record). L’UEFI – le nouveau micrologiciel des ordinateurs – change la donne et recommande l’utilisation d’une nouvelle table de partitionnement : le GPT (GUID Partition Table).\\
+\\
+BIOS (Basic Input Output System) : préinstallé sur la carte mère, le BIOS est le premier logiciel qui est exécuté après avoir allumé l’ordinateur. Il est utilisé pour effectuer l’initialisation du matériel et pour fournir des services aux systèmes d’exploitation et aux programmes. \\
+\\
+UEFI (Unified Extensible Firmware Interface) : le nouveau micrologiciel des ordinateurs. Il remplace le BIOS. Il s’accompagne de nouvelles spécifications, comme l’utilisation d’une nouvelle table de partitionnement pour les disques : le GPT.\\
+\\
+MBR (Master Boot Record) : le MBR est le nom donné au premier secteur physique d’un disque. Il contient la table de partitionnement du disque et un code d’amorçage permettant de démarrer le système d’exploitation. Il fonctionne de pair avec le BIOS.\\
+\\
+GPT (GUID Partition Table) : nouveau standard pour décrire la table de partitionnement d’un disque. Il remplace le MBR. Il fonctionne de pair avec l’UEFI, même si certains BIOS l’utilisent à cause des limitations du MBR.\\
+\\
+\\
+Après la lecture du MBR du disque, le BIOS va exécuter le code d’amorçage situé dedans. L’objectif du code d’amorçage est de lancer le chargeur d’amorçage (bootloader) du système d’exploitation situé sur la partition du disque marquée comme active. Sur Windows, le chargeur d’amorçage est Windows Boot Manager (bootmgr) ; sur Linux, c’est GRUB.
+
+\chapter{Langage Machine/Assembleur}
+\end{document}

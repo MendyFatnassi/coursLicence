@@ -1,0 +1,356 @@
+\documentclass[a4paper,12pt]{book}
+\usepackage [utf8]{inputenc}
+\usepackage [french]{babel}
+\usepackage [T1]{fontenc}
+\usepackage{listings}
+\usepackage{graphicx}
+
+%%configuration de listings
+\lstset{
+language=html,
+basicstyle=\ttfamily\small, 
+identifierstyle=\color{red}, 
+keywordstyle=\color{blue}, 
+stringstyle=\color{black!60}, 
+commentstyle=\it\color{green!95!yellow!1}, 
+columns=flexible, 
+tabsize=1, 
+extendedchars=true, 
+showspaces=false, 
+showstringspaces=false, 
+numbers=left, 
+numberstyle=\tiny, 
+breaklines=true, 
+breakautoindent=true, 
+captionpos=b
+}
+
+\usepackage{xcolor}
+\definecolor{Zgris}{rgb}{0.87,0.85,0.85}
+
+%meta du document
+%\pagestyle{fancy}
+%\fontfamily{famille}
+%\selectfont
+
+%Generation titre et table des matieres
+%\tableofcontents
+
+\author{Mendy Fatnassi}
+\title{Cours de Web HTML/CSS/JS/PHP}
+
+\begin{document}
+\maketitle
+
+\chapter{Chapitre 0 : LAMPP}
+\\
+LAMP est un acronyme pour Linux, Apache, MySQL, PHP. C'est une pile logicielle comprenant le système d'exploitation, un serveur HTTP, un système de gestion de bases de données et un langage de programmation interprété, et qui permet de mettre en place un serveur web.\\
+Lancer/arreter LAMP : sudo /opt/lampp/lampp {start|stop} .\\
+
+\chapter{Chapitre 1 : HTML}
+
+\section{Introduction}
+
+Le langage HTML est utilis/é pour créer le contenue et la structure d'une page web.\\
+\\
+\section{Structure du corp de page}
+
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+<!doctype html>
+<html lang="fr">
+	<head>
+		<title>Titre</title>
+		<meta charset="utf-8">
+		<link rel=stylesheet" href="style.css">
+	</head>
+
+	<body>
+		<h1>Titre 1</h1>
+
+		<div>
+			<p class="para1"> Un premier paragraphe</p>
+			<p class="para2"> Un deuxieme paragraphe</p>
+		</div>	
+</body>
+</html>
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+
+
+
+\section{Organisation de la page}
+
+Voici une liste de balise frequement utilisé : \\
+-<em>Italique<\textbackslash em> : mettre un peux en valeur.\\
+-<strong>gras<\textbackslash strong> : mettre bien en valeur.\\
+-<mark>Surligne le texte<\textbackslash mark> : fait ressortir du texte important.\\
+\\
+Note : Ces balises ne servent pas a la mise en forme de la page mais a specifier leur importance pour une meilleur lecture du document.\\
+\\
+Les listes : il existe 2 types les listes ordonnee et non-ordonnee .\\
+Liste non-ordonnee : Resultat donne une liste a puces .\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+<ul>
+    <li>Fraises</li>
+    <li>Framboises</li>
+    <li>Cerises</li>
+</ul>
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+Liste ordonnee : Resultat donne une liste numerote.\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+<ol>
+    <li>Je me leve.</li>
+    <li>Je mange et je bois.</li>
+    <li>Je retourne me coucher.</li>
+</ol>
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+Creer des liens :\\
+\\
+<a href="chemin vers page ou url site">Du texte lien<\textbackslash a>
+\\
+Pour afficher un lien en survole on utilise [title] en plus.\\
+exemple : <a href="chemin vers page ou url site" title="infobulle au survole">Du texte lien<\textbackslash a>.\\
+\\
+Si on veux que le lien ouvre une nouvelle fenetre on rajoutera comme pour [title] un argument [target="_blank"].\\
+\\
+Inserez des images : \\
+<img src="chemin/img.pgn" alt="texte photo" title="info bulle" \textbackslash> \\
+\\
+Inclure une portien de code :\\
+Si on veux placer par exemple notre menu de navigation , dans plusieur page html au lieu de copier/coller le code on peux inclure cette portion de code .\\
+<?php include ("nav.php"); ?> \\
+le fichier nav doit etre en .php meme si celui ci ne contient que du code html.\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{CSS}
+
+\section{Introduction}
+
+Le CSS permet de changer la forme (couleur,taille...) d'une page web , on a donc html pour le fond et css pour la forme .\\
+\\Pour integrer une feuille de css a une page html il suffit de rajouter dans l'entete :\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="style.css" />
+	<title>Premiers tests du CSS</title>
+</head>
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+\section{Declaration}
+\\
+Pour acceder a une \textbf{class} dans css on utilise "." par exemple :\\
+\\
+Html : <p class="introduction">Bonjour et bienvenue sur mon site !</p>\\
+\\
+css : .introduction{ color : blue } /*color les class de type introduction en bleu ici ill s'agit de <p> qui seras en bleue */\\
+\\
+Et Pour acceder a un \textbf{id} on utilise le symbole "#" .\\ 
+\\
+Si on veux selectionner un ensemble de balise on separera les champ par une virgule "\," :\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+h3,p
+{
+
+}
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+Cela veux dire que les balise <h3> et <p> seront en bleue.\\
+\\
+Si on veux selectionner une balise contenue dans une autre on feras :\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+h3 em
+{
+
+}
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+Exemple code html correspondant :\\
+\verb+<h3>Titre avec <em>texte important</em></h3>+
+\\
+Cela veux dire que seul la balise <em> contenue dans une balise <h3> seras coloré en bleue.
+\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Les media Query}
+Les Media Queries sont destinées à simplifier la création de pages web pour les rendre consultables sur des supports variés (tablettes, smartphones…).Elle sont une expression qui est soit vrais soit fausse.\\
+\\
+\textbf{utilisation}:\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+@media (min-width : 330px) AND (max-width : 756px){
+ .container {
+    max-width: 970px;
+  }
+  ...
+}
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{JavaScript}
+
+\section{Introduction}
+
+JavaScript sert a dynamiser une page web c-a-d qu'il vas permettre de creer des interaction indirectement ou non avec l'utilisateur grace a des animation ou autre evenement pouvant se produire sur la page web .\\
+On peux declarer un script js soit dans le code html dans les balises html ou dans un fichier a part : 
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+<html>
+<head> ... <\head>
+<body>
+	<script> ... du script js....<\script> 			<!--code dans html-->
+	<script src="/chemin/monFicher.js"><\script>    <!--code dans un  autre fichier-->
+<\body>
+<\html>
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+Afficher du texte : 	alert("hello world!"); // consol.log(nom_var);
+Declaration variable :  var=1; var="toto";
+Demande de  saisie : 	var res=prompt("Entrez un resultat : ");
+\\
+\section{les fonctions}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{PHP}
+
+\section{Introduction}
+
+Quant a lui PHP sert a faire la liason entre la page web et une base de données (MySQL) pour cela on peux se servir d'un serveur local pour afficher/prévisualiser le rendu de notre page sur internet cela se fait grace au serveur Apach qui fournit dans un kit (PHPmyAdmin,Apach,MySQL) qui est appelé LAMPP pour la distribution Unix.
+\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Plugin}
+\section{Bootstrap}
+\\
+\textbf{Installation}: \\
+Telecharger les sources sur directement sur le site de Bootstrap "Download source".\\
+Il faut ensuite declarer au minimum le fichier "bootstrap.min.css" (ou bootstrap.css) dans l'en-tête de la page web :   \verb+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">+ \\
+\\
+Si on utilise des composants JavaScript, vous devez également référencer la librairie de Bootstrap ainsi que jQuery : \verb+<script src="bootstrap/js/jquery.js"> ET </script>
+<script src="bootstrap/js/bootstrap.min.js"></script>+ \\
+\\
+Pour la comptabilite IE : \verb+<meta http-equiv="X-UA-Compatible" content="IE=edge">+\\
+\\
+Pour les mobiles : \verb+<meta name="viewport" content="width=device-width, initial-scale=1">+\\
+\\
+Et en pied de page les appelles JS pour ne pas ralentir le chargement (utile pour les plugins JQuery) : \verb+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> ET </script>
+<script src="js/bootstrap.min.js"></script>+\\
+\\
+\underline{Pour resumer}: \\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Bootstrap template</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+ou voir ce template de demarrage : \\
+\\
+\begin{lstlisting} 
+<!doctype html>
+<html lang="fr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+\textbf{Utilisation}: \\
+\\
+Boostrap marche selon un systeme de grille qui prend une largueur maximal de 12 . Les element de bootrsap doivent etre place a l'interieur d'une balise container "<div class="container"><\div>"
+\\
+row : permet de declarer une ligne de 1 a 12 grille .La taille du media est indique grace a :\\
+xs = les petit ecrans (telephone) , sm = ecran moyen petit (tablette) , md = ecran moyen , lg = ecran large .\\ 
+col-xs-1 ou col-sm-1 ou col-md-1 ou col-lg-1 \\
+...\\
+col-xs-12 ou col-sm-12 ou col-md-12 ou col-lg-12\\
+\\
+On peux ansi creer plusieur ligne avec des element occupant une taille definie dans la grille boostrap .\\
+\\
+Exemple:\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">3 colonnes</div>
+    <div class="col-lg-6">6 colonnes</div>
+    <div class="col-lg-3">3 colonnes</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">3 colonnes</div>
+    <div class="col-lg-offset-6 col-lg-3">3 colonnes</div>
+  </div>
+</div>
+</body>
+
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+
+\chapter{Annexes}
+\\
+Bootly 
+\\
+\end{document}

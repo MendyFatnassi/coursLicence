@@ -1,0 +1,199 @@
+\documentclass[a4paper,12pt,openany]{book}
+\usepackage [utf8]{inputenc}
+\usepackage [french]{babel}
+\usepackage [T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{listings}
+
+
+%%configuration de listings
+\lstset{
+language=python,
+basicstyle=\ttfamily\small, 
+identifierstyle=\color{red}, 
+keywordstyle=\color{blue}, 
+stringstyle=\color{black!60}, 
+commentstyle=\it\color{green!95!yellow!1}, 
+columns=flexible, 
+tabsize=1, 
+extendedchars=true, 
+showspaces=false, 
+showstringspaces=false, 
+numbers=left, 
+numberstyle=\tiny, 
+breaklines=true, 
+breakautoindent=true, 
+captionpos=b
+}
+
+%coloration syntaxique
+\usepackage{xcolor}
+\definecolor{Zgris}{rgb}{0.87,0.85,0.85}
+
+
+\titleformat{\chapter}[block]
+  {\normalfont\Huge\bfseries}% font of number
+  {\chaptertitlename\ \thechapter~:}% format of number
+  {20pt}% space between number and title
+  {\Huge}% font of title
+
+\titlespacing*{\chapter}
+  {0pt}%  indent
+  {0pt}% space before
+  {20pt}% space after
+\titlespacing*{\section}
+  {0pt}%  indent
+  {3.5ex plus 1ex minus .2ex}% space before
+  {2.3ex plus .2ex}% space after
+
+\author{Mendy Fatnassi}
+\title{Cours de Programmation en Python}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	Page	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\tableofcontents
+
+
+\chapter{Introduction}
+\section{Pr\'esentation}
+\\
+Python est un langage de programmation interpr\'et\'e, c est-à-dire que les instructions que vous lui envoyez sont \verb+« transcrites »+ en langage machine au fur et à mesure de leur lecture.\\
+ D'autres langages (comme le C / C++) sont appelés « langages compil\'es » car, avant de pouvoir les ex\'ecuter, un logiciel spécialisé se charge de transformer le code du programme en langage machine.\\
+On appelle cette \'etape la « compilation ».\\
+
+\section{Installation bibliotheque python}
+Depuis python 3.4 l'utilitaire \'pip\' est installé avec la package d'installation , sinon telecharger le : \$sudo apt\-get install pip \\
+Une fois cela fait utilisé  \'pip\' pour telecharger les bibliotheque puthon : \$sudo pip install nom\_biblio \\
+
+\section{Python Generalité}
+
+Comme pour un script sh , python a un shebang \verb+"#!/usr/bin/python"+ .\\
+Pour lancer un l'interpreteur python depuis le terminal tapez : pythonX.X (python3.5).\\
+Pour lancer directement un script depuis le terminal : \verb + $python nom_script.py OU ./nom_script.py +\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{variable}
+
+Python comme dit precedemment n'est pas un language typé c-a-d qu'il suffit de declarer une variable sans son type et de l'affecte directement a la valeur souhaité.\\
+\underline{exemple}:\\
+$varInt = 12$\\
+$varFloat = 12.5$\
+$varString = "StringQuelconque"$\
+\\
+une chaine peut etre entouré soit de guillemet \" ou d'apostrophe \' mais il faudra echapper les caractere guillement/apostrophe si celui ci figure dans la chaine .\\
+Si on veux pas echapper les caratere on peux mettre la chaine en triple guillemet \verb+ """chaine d'un caractere""" +.\\
+
+\section{Entree/Sortie}
+$type(nom_var) => $ renvoie le type de la variable.\\
+$print("a =", a, "et b =", b) => $ affiche la variable ou le texte sur la sortie standard.\\
+$input("message : ") => $ saisie utilisateur .\\
+\\
+\underline{Rq}: si on veux stocker le resulatat , $varRes=input("entrez resulatat : ")$ .\\
+\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Dictionnaire}
+En python il existe des tableau associatif appelé dictionnaire et se declare de deux facons :\\
+soit avec la class $dict() : mon_dic=dict()$\\
+ou alors avec des parenthese : $dictionnaire = {Cles : valeur}$ \\
+Les parenthèses \verb+() délimitent les tuples, les crochets [] délimitent les listes et les accolades {}+ délimitent les dictionnaires.
+\\
+\underline{Exemple} : \\
+\begin{verbatim}
+#Declaration du dictionnaire
+d={"salut" : "hi" ,"Montagne":"Mountain" ,2:"Wave" ,"Manger":"eat", "Boire":"Drink"}
+
+#Afficher tout le dictionnaire
+print("\n Valeur du dictionnaire =",d,"\n")
+
+#Affiche 
+print("Salut --->",d["salut"],"\n")
+\end{verbatim}
+\\
+\textbf{Ajout}\\
+Pour ajouter une valeur dans un dictionnaire on place directement la cles et ca valeur dans le dictionnaire : $d["ajouter"]= "add" $ \\
+$d={"salut" : "hi" ,"Montagne":"Mountain" ,2:"Wave" ,"Manger":"eat", "Boire":"Drink","ajouter":"add"}$ \\
+\\
+\\
+\textbf{Supression}\\
+On peux utiliser la methode $del() : del nomDict[cles] --> del d["salut"] $ \\
+$ d={"Montagne":"Mountain" ,2:"Wave" ,"Manger":"eat", "Boire":"Drink","ajouter":"add"} $ \\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Structure de controle}
+\section{Operateur de controle}
+\underline{Synthaxe}:\\
+\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+if condition :
+  print("Text")
+elif condition :
+  print("Text")
+else :
+  printf("Text")
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+On peux utiliser les mot clé \textbf{OR,AND,NOT} dans l'expression de la condition.On peux aussi utiliser \textbf{in} pour savoir si la variable apartient a cette sequence ou non.\\
+\underline{Exemple} :  if varString in $"abcdef" => (si varstring = a|b|c|d|e|f)$ \\
+
+
+\section{Operateur de boucle}
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+while condition :
+  #code
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+for element in sequence :
+  #code
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+La variable "element" est créée par le \"for\", ce n\'est pas à nous de l\'instancier. Elle prend successivement chacune des valeurs figurant dans la séquence parcourue \"sequence\".
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Les fonctions}
+
+\section{Definir une fonction}
+Création d'une fonction : \\
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+def nom_de_la_fonction(parametre1, parametre2, parametre3, parametreN):
+    # Bloc d'instructions
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+
+Si un parametre n'est pas saisie a l'appel d'une fonction , on peux donner une valeur par defaut a ce parametre par exemple :\\
+
+\begin{DDbox}{\linewidth}
+\begin{lstlisting}
+def table(nb, max=10):
+    """Table de nb jusqu a nb*max """
+    i = 0
+    while i < max:
+        print(i + 1, "*", nb, "=", (i + 1) * nb)
+        i += 1
+\end{lstlisting}
+\end{DDbox}{\linewidth}
+\\
+On peut appeler la fonction de deux façons : soit en précisant le num\'ero de la table et le nombre maximum d'affichages, soit en ne précisant que le numéro de la table (table(7)).\\
+Dans ce dernier cas,max vaudra 10 par défaut.\\
+\\
+
+\chapter{Biblotheque Numpy/Scipy/Matplotlib}
+
+Ces 3 bibliotheque permette d'utiliser des fonction mathematique , traces des graphes , faire des probabilite etc $...$ \\
+
+\end{document}
